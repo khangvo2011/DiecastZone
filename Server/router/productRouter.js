@@ -11,19 +11,20 @@ const {
   updateProduct,
   deleteProduct,
 } = require("../controller/productController.js");
+const { requireAdmin } = require("../middleware/auth");
 
 const upload = multer({
   storage: multer.memoryStorage(),
 });
 
-router.post("/", upload.single("image"), createProduct);
+router.post("/", requireAdmin, upload.single("image"), createProduct);
 
 router.get("/", getProducts);
 
 router.get("/:id",getProduct)
 
-router.put("/:id", upload.single("image"), updateProduct)
+router.put("/:id", requireAdmin, upload.single("image"), updateProduct)
 
-router.delete("/:id", deleteProduct)
+router.delete("/:id", requireAdmin, deleteProduct)
 
 module.exports = router

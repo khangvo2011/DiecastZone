@@ -9,14 +9,15 @@ const {
   updateCategory,
   deleteCategory,
 } = require("../controller/categoryController");
+const { requireAdmin } = require("../middleware/auth");
 
-router.post("/",createCategory);
+router.post("/", requireAdmin, createCategory);
 router.get("/",getCategories);
 
 router.get("/:id",getCategory)
 
-router.put("/:id", updateCategory)
+router.put("/:id", requireAdmin, updateCategory)
 
-router.delete("/:id", deleteCategory)
+router.delete("/:id", requireAdmin, deleteCategory)
 
 module.exports = router
