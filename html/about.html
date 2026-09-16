@@ -1,0 +1,365 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>About Us | Diecast Zone</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#f9f9f9",
+                      "on-error-container": "#93000a",
+                      "secondary": "#5f5e5e",
+                      "ink-black": "#1A1A1A",
+                      "surface-white": "#FFFFFF",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed-dim": "#ffb4aa",
+                      "surface-dim": "#dadada",
+                      "secondary-fixed-dim": "#c8c6c6",
+                      "outline": "#916f6a",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed": "#410001",
+                      "tertiary-fixed": "#d4e3ff",
+                      "action-blue": "#4A90E2",
+                      "on-tertiary-fixed-variant": "#004785",
+                      "on-secondary": "#ffffff",
+                      "primary": "#a7000a",
+                      "surface-container-highest": "#e2e2e2",
+                      "secondary-container": "#e4e2e1",
+                      "primary-fixed": "#ffdad5",
+                      "on-secondary-fixed": "#1b1c1c",
+                      "on-secondary-fixed-variant": "#474747",
+                      "on-primary-fixed-variant": "#930007",
+                      "on-surface": "#1a1c1c",
+                      "surface-variant": "#e2e2e2",
+                      "on-error": "#ffffff",
+                      "on-secondary-container": "#656464",
+                      "surface-container": "#eeeeee",
+                      "inverse-surface": "#2f3131",
+                      "error": "#ba1a1a",
+                      "inverse-on-surface": "#f1f1f1",
+                      "background": "#f9f9f9",
+                      "surface-container-high": "#e8e8e8",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-container": "#d01919",
+                      "surface-tint": "#bf040e",
+                      "on-surface-variant": "#5d3f3c",
+                      "tertiary-container": "#006ac1",
+                      "on-tertiary-container": "#e0eaff",
+                      "outline-variant": "#e6bdb8",
+                      "secondary-fixed": "#e4e2e1",
+                      "tertiary-fixed-dim": "#a5c8ff",
+                      "on-primary-container": "#ffe4e0",
+                      "inverse-primary": "#ffb4aa",
+                      "on-tertiary-fixed": "#001c3a",
+                      "surface-container-low": "#f3f3f3",
+                      "tertiary": "#005297",
+                      "on-background": "#1a1c1c",
+                      "surface-bright": "#f9f9f9",
+                      "on-primary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "gutter": "24px",
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px",
+                      "max-width": "1440px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "display-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-sm": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-lg-mobile": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-md": [
+                              "JetBrains Mono"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .hard-edge { border-radius: 0 !important; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden pt-20">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-ink-black dark:bg-ink-black border-b-2 border-primary">
+<div class="flex items-center gap-4">
+<button class="text-surface-white dark:text-surface-white hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<a class="font-display-lg text-headline-lg-mobile md:text-display-lg tracking-tighter text-primary uppercase flex items-center gap-2" href="#">
+<img alt="Diecast Zone Logo" class="h-10 w-10 object-contain rounded-DEFAULT" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB62tX9FBDdqYywFMobtla7On49rbKAkHy4oXuHoZrjjsa_2Lygh7FSlpVH1946QcSOX3y9HtuDTEFI9I6BPKOBfRZaA1AMjsPuKAkmExHDKi0K4liWOpL-4runV7dkHivrxWeMQnDAU2S-QKesC-1-fpRCN84K4c5xhXNjqaw4nVdBZn4RelKgNHgmpzTvY_uHJR8V3jodw5KwuCJFUUSo6RWvkgQU1gx-86b3zlT_eIBSVJdyyShLWQ">
+                DIECAST ZONE
+            </a>
+</div>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-surface-white font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Lego</a>
+<a class="text-surface-white font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Cars</a>
+<a class="text-surface-white font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Motorcycles</a>
+</nav>
+<button class="text-surface-white dark:text-surface-white hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+</header>
+<!-- NavigationDrawer (Mobile/Hidden by default, structure provided) -->
+<aside class="fixed inset-y-0 left-0 w-80 bg-surface-white dark:bg-surface-dim border-r-4 border-ink-black shadow-none flex flex-col h-full p-base z-50 transform -translate-x-full transition-transform duration-300 md:hidden" id="nav-drawer">
+<div class="flex items-center justify-between mb-8 p-4">
+<h2 class="font-headline-md text-headline-md text-ink-black">COLLECTIONS</h2>
+<button class="text-ink-black hover:text-primary" id="close-drawer">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 p-4 text-ink-black hover:bg-surface-container hover:bg-secondary-container transition-all font-label-md text-label-md rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+                Lego Technic
+            </a>
+<a class="flex items-center gap-4 p-4 text-ink-black hover:bg-surface-container hover:bg-secondary-container transition-all font-label-md text-label-md rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+                Star Wars
+            </a>
+<a class="flex items-center gap-4 p-4 text-ink-black hover:bg-surface-container hover:bg-secondary-container transition-all font-label-md text-label-md rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                Speed Champions
+            </a>
+<a class="flex items-center gap-4 p-4 text-ink-black hover:bg-surface-container hover:bg-secondary-container transition-all font-label-md text-label-md rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                Cars
+            </a>
+<a class="flex items-center gap-4 p-4 text-ink-black hover:bg-surface-container hover:bg-secondary-container transition-all font-label-md text-label-md rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="motorcycle">motorcycle</span>
+                Motorcycles
+            </a>
+</nav>
+</aside>
+<main class="max-w-[1440px] mx-auto">
+<!-- Hero Section -->
+<section class="px-margin-mobile md:px-margin-desktop py-12 md:py-24">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-6 space-y-6">
+<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg uppercase tracking-tighter text-ink-black">Engineered for <span class="text-primary">Collectors</span></h1>
+<p class="font-body-lg text-body-lg text-secondary border-l-4 border-primary pl-4">
+                        Diecast Zone is more than a store. It is a highly curated repository of precision scale models, designed for those who appreciate the engineering, history, and craftsmanship of the world's most iconic vehicles and structures.
+                    </p>
+</div>
+<div class="md:col-span-6 h-64 md:h-96 w-full bg-surface-container border border-surface-dim rounded-DEFAULT overflow-hidden relative group">
+
+<div class="absolute inset-0 border-4 border-ink-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+</div>
+</div>
+</section>
+<!-- Mission / Bento Grid -->
+<section class="px-margin-mobile md:px-margin-desktop py-12 md:py-24 bg-surface-white">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[250px]">
+<div class="md:col-span-8 bg-ink-black text-surface-white p-8 border border-secondary flex flex-col justify-end group rounded-DEFAULT relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="flag">flag</span>
+</div>
+<h3 class="font-headline-md text-headline-lg-mobile md:text-headline-md mb-2">Our Mission</h3>
+<p class="font-body-md text-body-md text-secondary-fixed-dim max-w-xl relative z-10">
+                        To provide an uncompromising selection of high-fidelity models, ensuring every collector has access to the precise scale and detail they demand. We reject the generic in favor of the exceptional.
+                    </p>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+</div>
+<div class="md:col-span-4 bg-surface text-ink-black p-8 border border-surface-dim flex flex-col justify-between group rounded-DEFAULT hover:shadow-[0px_4px_0px_rgba(95,94,94,0.3)] transition-all">
+<div>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest block mb-2">Standards</span>
+<h4 class="font-headline-md text-headline-md">Precision First</h4>
+</div>
+<p class="font-body-md text-body-md text-secondary">
+                        Every model is vetted for accuracy, material quality, and authentic representation of the original engineering.
+                    </p>
+</div>
+<div class="md:col-span-4 bg-primary text-on-primary p-8 flex flex-col justify-center items-center text-center group rounded-DEFAULT relative overflow-hidden">
+<span class="material-symbols-outlined text-6xl mb-4" data-icon="verified">verified</span>
+<h4 class="font-headline-md text-headline-md">Authorized Dealer</h4>
+<p class="font-body-md text-body-md mt-2 opacity-90">Direct from premium manufacturers.</p>
+</div>
+<div class="md:col-span-8 bg-surface-container relative rounded-DEFAULT overflow-hidden group">
+
+<div class="absolute bottom-0 left-0 p-8 bg-ink-black/80 backdrop-blur-sm w-full">
+<h4 class="font-headline-md text-headline-md text-surface-white">The Build Experience</h4>
+<p class="font-label-md text-label-md text-primary font-bold mt-1 tracking-widest uppercase">From Sprue to Showcase</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="px-margin-mobile md:px-margin-desktop py-12 md:py-24">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg uppercase text-ink-black mb-8 border-b-2 border-primary pb-4 inline-block">Contact HQ</h2>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary mt-1" data-icon="location_on">location_on</span>
+<div>
+<h5 class="font-label-md text-label-md text-ink-black uppercase font-bold">Facility Location</h5>
+<p class="font-body-md text-body-md text-secondary">Sector 7G, Industrial Park<br>Neo-Tokyo, 90210</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary mt-1" data-icon="mail">mail</span>
+<div>
+<h5 class="font-label-md text-label-md text-ink-black uppercase font-bold">Comms Channel</h5>
+<p class="font-body-md text-body-md text-secondary">dispatch@diecastzone.com</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary mt-1" data-icon="call">call</span>
+<div>
+<h5 class="font-label-md text-label-md text-ink-black uppercase font-bold">Direct Line</h5>
+<p class="font-body-md text-body-md text-secondary">+1 (800) 555-DIECAST</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="bg-surface-white p-8 border border-surface-dim rounded-DEFAULT shadow-[0px_4px_0px_rgba(95,94,94,0.1)]">
+<form class="flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-ink-black uppercase">Callsign (Name)</label>
+<input class="border border-ink-black focus:border-2 focus:border-ink-black focus:ring-0 rounded-none bg-surface p-3 font-body-md outline-none transition-all" type="text">
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-ink-black uppercase">Transmission Vector (Email)</label>
+<input class="border border-ink-black focus:border-2 focus:border-ink-black focus:ring-0 rounded-none bg-surface p-3 font-body-md outline-none transition-all" type="email">
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-ink-black uppercase">Message Data</label>
+<textarea class="border border-ink-black focus:border-2 focus:border-ink-black focus:ring-0 rounded-none bg-surface p-3 font-body-md outline-none transition-all resize-none" rows="4"></textarea>
+</div>
+<button class="bg-primary hover:bg-surface-tint text-surface-white font-label-md text-label-md uppercase tracking-widest py-4 px-6 rounded-none transition-colors w-full mt-4 flex items-center justify-center gap-2" type="submit">
+                            Transmit Request
+                            <span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+</button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-gutter bg-ink-black dark:bg-ink-black border-t-4 border-primary flat no shadows mt-12">
+<div class="flex flex-col justify-between">
+<div class="font-label-md text-label-md text-primary mb-6">
+<img alt="Diecast Zone Logo" class="h-8 w-8 object-contain rounded-DEFAULT mb-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB62tX9FBDdqYywFMobtla7On49rbKAkHy4oXuHoZrjjsa_2Lygh7FSlpVH1946QcSOX3y9HtuDTEFI9I6BPKOBfRZaA1AMjsPuKAkmExHDKi0K4liWOpL-4runV7dkHivrxWeMQnDAU2S-QKesC-1-fpRCN84K4c5xhXNjqaw4nVdBZn4RelKgNHgmpzTvY_uHJR8V3jodw5KwuCJFUUSo6RWvkgQU1gx-86b3zlT_eIBSVJdyyShLWQ">
+                 DIECAST ZONE
+            </div>
+<p class="font-body-md text-body-md text-surface-white dark:text-surface-white">
+                © 2024 DIECAST ZONE. ENGINEERED FOR COLLECTORS.
+            </p>
+</div>
+<div class="flex flex-col justify-start md:items-end">
+<nav class="flex flex-col md:items-end gap-3">
+<a class="font-body-md text-body-md text-primary underline focus:outline-none hover:text-surface-white transition-colors" href="#">About Us</a>
+<a class="font-body-md text-body-md text-secondary-fixed-dim focus:outline-none hover:text-surface-white transition-colors" href="#">Shipping Policy</a>
+<a class="font-body-md text-body-md text-secondary-fixed-dim focus:outline-none hover:text-surface-white transition-colors" href="#">Technical Specs</a>
+<a class="font-body-md text-body-md text-secondary-fixed-dim focus:outline-none hover:text-surface-white transition-colors" href="#">Contact Support</a>
+</nav>
+</div>
+</footer>
+<script>
+        // Simple drawer toggle logic for mobile
+        const menuBtn = document.querySelector('header button');
+        const drawer = document.getElementById('nav-drawer');
+        const closeBtn = document.getElementById('close-drawer');
+
+        menuBtn.addEventListener('click', () => {
+            drawer.classList.remove('-translate-x-full');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            drawer.classList.add('-translate-x-full');
+        });
+    </script>
+
+
+</body></html>

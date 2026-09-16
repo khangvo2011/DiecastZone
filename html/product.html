@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="vi" >
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>DiecastZone - Danh sách sản phẩm</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed": "#e4e2e1",
+              "surface-tint": "#bf040e",
+              "tertiary-container": "#006ac1",
+              "on-secondary-fixed": "#1b1c1c",
+              "outline-variant": "#e6bdb8",
+              "surface-variant": "#e2e2e2",
+              "surface-container-highest": "#e2e2e2",
+              "on-error-container": "#93000a",
+              error: "#ba1a1a",
+              "secondary-container": "#e4e2e1",
+              "tertiary-fixed-dim": "#a5c8ff",
+              "on-surface-variant": "#5d3f3c",
+              "secondary-fixed-dim": "#c8c6c6",
+              "on-tertiary-container": "#e0eaff",
+              "inverse-on-surface": "#f1f1f1",
+              "action-blue": "#4A90E2",
+              "surface-dim": "#dadada",
+              "error-container": "#ffdad6",
+              "surface-bright": "#f9f9f9",
+              "on-tertiary-fixed": "#001c3a",
+              "on-primary-fixed-variant": "#930007",
+              "on-secondary-fixed-variant": "#474747",
+              "ink-black": "#1A1A1A",
+              "surface-white": "#FFFFFF",
+              outline: "#916f6a",
+              "tertiary-fixed": "#d4e3ff",
+              tertiary: "#005297",
+              "inverse-surface": "#2f3131",
+              "primary-fixed-dim": "#ffb4aa",
+              "on-secondary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "surface-container-low": "#f3f3f3",
+              "primary-fixed": "#ffdad5",
+              "on-secondary-container": "#656464",
+              "on-tertiary-fixed-variant": "#004785",
+              "on-primary-container": "#ffe4e0",
+              "surface-container": "#eeeeee",
+              "surface-container-lowest": "#ffffff",
+              "on-background": "#1a1c1c",
+              "on-error": "#ffffff",
+              surface: "#f9f9f9",
+              "surface-container-high": "#e8e8e8",
+              "on-primary": "#ffffff",
+              "inverse-primary": "#ffb4aa",
+              "on-primary-fixed": "#410001",
+              "on-surface": "#1a1c1c",
+              "primary-container": "#d01919",
+              primary: "#a7000a",
+              background: "#f9f9f9",
+              secondary: "#5f5e5e",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              base: "8px",
+              "margin-desktop": "48px",
+              "max-width": "1440px",
+              "margin-mobile": "16px",
+              gutter: "24px",
+            },
+            fontFamily: {
+              "body-lg": ["Hanken Grotesk"],
+              "headline-lg-mobile": ["Hanken Grotesk"],
+              "headline-lg": ["Hanken Grotesk"],
+              "display-lg": ["Hanken Grotesk"],
+              "label-md": ["JetBrains Mono"],
+              "label-sm": ["JetBrains Mono"],
+              "body-md": ["Hanken Grotesk"],
+              "headline-md": ["Hanken Grotesk"],
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .font-body-lg {
+          font-family: theme("fontFamily.body-lg");
+          font-size: 18px;
+          line-height: 28px;
+          font-weight: 400;
+        }
+        .text-body-lg {
+          font-family: theme("fontFamily.body-lg");
+          font-size: 18px;
+          line-height: 28px;
+          font-weight: 400;
+        }
+
+        .font-headline-lg-mobile {
+          font-family: theme("fontFamily.headline-lg-mobile");
+          font-size: 24px;
+          line-height: 32px;
+          font-weight: 700;
+        }
+        .text-headline-lg-mobile {
+          font-family: theme("fontFamily.headline-lg-mobile");
+          font-size: 24px;
+          line-height: 32px;
+          font-weight: 700;
+        }
+
+        .font-headline-lg {
+          font-family: theme("fontFamily.headline-lg");
+          font-size: 32px;
+          line-height: 40px;
+          font-weight: 700;
+        }
+        .text-headline-lg {
+          font-family: theme("fontFamily.headline-lg");
+          font-size: 32px;
+          line-height: 40px;
+          font-weight: 700;
+        }
+
+        .font-display-lg {
+          font-family: theme("fontFamily.display-lg");
+          font-size: 48px;
+          line-height: 56px;
+          letter-spacing: -0.02em;
+          font-weight: 800;
+        }
+        .text-display-lg {
+          font-family: theme("fontFamily.display-lg");
+          font-size: 48px;
+          line-height: 56px;
+          letter-spacing: -0.02em;
+          font-weight: 800;
+        }
+
+        .font-label-md {
+          font-family: theme("fontFamily.label-md");
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: 0.05em;
+          font-weight: 500;
+        }
+        .text-label-md {
+          font-family: theme("fontFamily.label-md");
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: 0.05em;
+          font-weight: 500;
+        }
+
+        .font-label-sm {
+          font-family: theme("fontFamily.label-sm");
+          font-size: 12px;
+          line-height: 16px;
+          font-weight: 500;
+        }
+        .text-label-sm {
+          font-family: theme("fontFamily.label-sm");
+          font-size: 12px;
+          line-height: 16px;
+          font-weight: 500;
+        }
+
+        .font-body-md {
+          font-family: theme("fontFamily.body-md");
+          font-size: 16px;
+          line-height: 24px;
+          font-weight: 400;
+        }
+        .text-body-md {
+          font-family: theme("fontFamily.body-md");
+          font-size: 16px;
+          line-height: 24px;
+          font-weight: 400;
+        }
+
+        .font-headline-md {
+          font-family: theme("fontFamily.headline-md");
+          font-size: 24px;
+          line-height: 32px;
+          font-weight: 600;
+        }
+        .text-headline-md {
+          font-family: theme("fontFamily.headline-md");
+          font-size: 24px;
+          line-height: 32px;
+          font-weight: 600;
+        }
+
+        .material-symbols-outlined {
+          font-family: "Material Symbols Outlined";
+          font-weight: normal;
+          font-style: normal;
+          font-size: 24px;
+          line-height: 1;
+          letter-spacing: normal;
+          text-transform: none;
+          display: inline-block;
+          white-space: nowrap;
+          word-wrap: normal;
+          direction: ltr;
+          -webkit-font-smoothing: antialiased;
+        }
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- TopAppBar -->
+    <header
+      class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-ink-black dark:bg-ink-black border-b-2 border-primary flat no shadows"
+    >
+      <button
+        aria-label="Menu"
+        class="text-surface-white dark:text-surface-white hover:text-primary transition-colors duration-200 opacity-80"
+      >
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <div
+        class="font-display-lg text-display-lg tracking-tighter text-primary uppercase"
+      >
+        DIECAST ZONE
+      </div>
+      <button
+        aria-label="Shopping Cart"
+        class="text-surface-white dark:text-surface-white hover:text-primary transition-colors duration-200"
+      >
+        <span class="material-symbols-outlined">shopping_cart</span>
+      </button>
+    </header>
+    <!-- Main Content Canvas -->
+    <main
+      class="flex-grow pt-[104px] pb-16 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto w-full"
+    >
+      <!-- Controls Bar -->
+      <div class="mb-8">
+        <div class="flex overflow-x-auto pb-2 gap-3 no-scrollbar">
+          <button
+            class="flex-shrink-0 px-6 py-2 bg-primary text-surface-white font-label-md text-label-md uppercase border border-primary hover:bg-ink-black transition-colors"
+          >
+            Tất cả</button
+          ><button
+            class="flex-shrink-0 px-6 py-2 bg-surface-white text-ink-black font-label-md text-label-md uppercase border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            Lego Technic</button
+          ><button
+            class="flex-shrink-0 px-6 py-2 bg-surface-white text-ink-black font-label-md text-label-md uppercase border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            Lego Speed Champion</button
+          ><button
+            class="flex-shrink-0 px-6 py-2 bg-surface-white text-ink-black font-label-md text-label-md uppercase border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            Lego Starwar</button
+          ><button
+            class="flex-shrink-0 px-6 py-2 bg-surface-white text-ink-black font-label-md text-label-md uppercase border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            Car</button
+          ><button
+            class="flex-shrink-0 px-6 py-2 bg-surface-white text-ink-black font-label-md text-label-md uppercase border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            Motocycle</button
+          ><button
+            class="flex-shrink-0 px-6 py-2 bg-surface-white text-ink-black font-label-md text-label-md uppercase border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            Accessories
+          </button>
+        </div>
+      </div>
+      <!-- <div class="mb-8">
+        <div class="flex items-center gap-4 mb-3">
+          <span
+            class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"
+            >Tỉ lệ (Scale):</span
+          >
+        </div>
+        <div class="flex overflow-x-auto pb-2 gap-3 no-scrollbar">
+          <button
+            class="flex-shrink-0 px-4 py-1.5 bg-surface-white text-ink-black font-label-sm text-label-sm border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            1:8</button
+          ><button
+            class="flex-shrink-0 px-4 py-1.5 bg-surface-white text-ink-black font-label-sm text-label-sm border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            1:10</button
+          ><button
+            class="flex-shrink-0 px-4 py-1.5 bg-surface-white text-ink-black font-label-sm text-label-sm border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            1:12</button
+          ><button
+            class="flex-shrink-0 px-4 py-1.5 bg-surface-white text-ink-black font-label-sm text-label-sm border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            1:18</button
+          ><button
+            class="flex-shrink-0 px-4 py-1.5 bg-surface-white text-ink-black font-label-sm text-label-sm border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            1:24</button
+          ><button
+            class="flex-shrink-0 px-4 py-1.5 bg-surface-white text-ink-black font-label-sm text-label-sm border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            1:43</button
+          ><button
+            class="flex-shrink-0 px-4 py-1.5 bg-surface-white text-ink-black font-label-sm text-label-sm border border-ink-black hover:border-primary hover:text-primary transition-colors"
+          >
+            1:64
+          </button>
+        </div>
+      </div> -->
+      <div
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 border-b border-surface-dim pb-4"
+      >
+        <h1
+          class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-ink-black"
+        >
+          Product Categories
+        </h1>
+        <div class="flex items-center gap-2">
+          <label
+            class="font-label-md text-label-md text-on-surface-variant"
+            for="sort"
+            >Filter :</label
+          >
+          <div class="relative">
+            <select
+              class="appearance-none bg-surface-white border border-ink-black rounded-DEFAULT py-2 pl-3 pr-10 font-body-md text-body-md text-ink-black focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:border-2"
+              id="sort"
+            >
+              <option value="newest">Newest</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+            <span
+              class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-ink-black"
+              style="font-size: 20px"
+              >expand_more</span
+            >
+          </div>
+        </div>
+      </div>
+      <!-- Product Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-x-gutter gap-y-8">
+        <!-- Product Card Skeleton 1 -->
+        <div
+          class="bg-surface-white border border-surface-variant hover:shadow-[0px_4px_0px_rgba(95,94,94,0.1)] transition-shadow duration-200 group"
+        >
+          <div
+            class="aspect-square bg-surface-container-high relative overflow-hidden"
+          >
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span
+                class="material-symbols-outlined text-secondary-fixed-dim"
+                style="font-size: 48px"
+                >directions_car</span
+              >
+            </div>
+          </div>
+          <div class="p-4 flex flex-col gap-2">
+            <div class="font-label-sm text-label-sm text-secondary">
+              1:18 SCALE
+            </div>
+            <div
+              class="font-body-md text-body-md text-ink-black font-semibold truncate group-hover:text-primary transition-colors"
+            >
+              Product Title
+            </div>
+            <div class="font-label-md text-label-md text-ink-black">$0.00</div>
+          </div>
+        </div>
+        <!-- Product Card Skeleton 2 -->
+        <div
+          class="bg-surface-white border border-surface-variant hover:shadow-[0px_4px_0px_rgba(95,94,94,0.1)] transition-shadow duration-200 group"
+        >
+          <div
+            class="aspect-square bg-surface-container-high relative overflow-hidden"
+          >
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span
+                class="material-symbols-outlined text-secondary-fixed-dim"
+                style="font-size: 48px"
+                >directions_car</span
+              >
+            </div>
+          </div>
+          <div class="p-4 flex flex-col gap-2">
+            <div class="font-label-sm text-label-sm text-secondary">
+              1:24 SCALE
+            </div>
+            <div
+              class="font-body-md text-body-md text-ink-black font-semibold truncate group-hover:text-primary transition-colors"
+            >
+              Product Title
+            </div>
+            <div class="font-label-md text-label-md text-ink-black">$0.00</div>
+          </div>
+        </div>
+        <!-- Product Card Skeleton 3 -->
+        <div
+          class="bg-surface-white border border-surface-variant hover:shadow-[0px_4px_0px_rgba(95,94,94,0.1)] transition-shadow duration-200 group"
+        >
+          <div
+            class="aspect-square bg-surface-container-high relative overflow-hidden"
+          >
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span
+                class="material-symbols-outlined text-secondary-fixed-dim"
+                style="font-size: 48px"
+                >directions_car</span
+              >
+            </div>
+          </div>
+          <div class="p-4 flex flex-col gap-2">
+            <div class="font-label-sm text-label-sm text-secondary">
+              1:43 SCALE
+            </div>
+            <div
+              class="font-body-md text-body-md text-ink-black font-semibold truncate group-hover:text-primary transition-colors"
+            >
+              Product Title
+            </div>
+            <div class="font-label-md text-label-md text-ink-black">$0.00</div>
+          </div>
+        </div>
+        <!-- Product Card Skeleton 4 -->
+        <div
+          class="bg-surface-white border border-surface-variant hover:shadow-[0px_4px_0px_rgba(95,94,94,0.1)] transition-shadow duration-200 group"
+        >
+          <div
+            class="aspect-square bg-surface-container-high relative overflow-hidden"
+          >
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span
+                class="material-symbols-outlined text-secondary-fixed-dim"
+                style="font-size: 48px"
+                >directions_car</span
+              >
+            </div>
+          </div>
+          <div class="p-4 flex flex-col gap-2">
+            <div class="font-label-sm text-label-sm text-secondary">
+              1:64 SCALE
+            </div>
+            <div
+              class="font-body-md text-body-md text-ink-black font-semibold truncate group-hover:text-primary transition-colors"
+            >
+              Product Title
+            </div>
+            <div class="font-label-md text-label-md text-ink-black">$0.00</div>
+          </div>
+        </div>
+        <!-- Product Card Skeleton 5 -->
+        <div
+          class="bg-surface-white border border-surface-variant hover:shadow-[0px_4px_0px_rgba(95,94,94,0.1)] transition-shadow duration-200 group"
+        >
+          <div
+            class="aspect-square bg-surface-container-high relative overflow-hidden"
+          >
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span
+                class="material-symbols-outlined text-secondary-fixed-dim"
+                style="font-size: 48px"
+                >directions_car</span
+              >
+            </div>
+          </div>
+          <div class="p-4 flex flex-col gap-2">
+            <div class="font-label-sm text-label-sm text-secondary">
+              1:18 SCALE
+            </div>
+            <div
+              class="font-body-md text-body-md text-ink-black font-semibold truncate group-hover:text-primary transition-colors"
+            >
+              Product Title
+            </div>
+            <div class="font-label-md text-label-md text-ink-black">$0.00</div>
+          </div>
+        </div>
+        <!-- Product Card Skeleton 6 -->
+        <div
+          class="bg-surface-white border border-surface-variant hover:shadow-[0px_4px_0px_rgba(95,94,94,0.1)] transition-shadow duration-200 group"
+        >
+          <div
+            class="aspect-square bg-surface-container-high relative overflow-hidden"
+          >
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span
+                class="material-symbols-outlined text-secondary-fixed-dim"
+                style="font-size: 48px"
+                >directions_car</span
+              >
+            </div>
+          </div>
+          <div class="p-4 flex flex-col gap-2">
+            <div class="font-label-sm text-label-sm text-secondary">
+              1:24 SCALE
+            </div>
+            <div
+              class="font-body-md text-body-md text-ink-black font-semibold truncate group-hover:text-primary transition-colors"
+            >
+              Product Title
+            </div>
+            <div class="font-label-md text-label-md text-ink-black">$0.00</div>
+          </div>
+        </div>
+        <!-- Product Card Skeleton 7 -->
+        <div
+          class="bg-surface-white border border-surface-variant hover:shadow-[0px_4px_0px_rgba(95,94,94,0.1)] transition-shadow duration-200 group"
+        >
+          <div
+            class="aspect-square bg-surface-container-high relative overflow-hidden"
+          >
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span
+                class="material-symbols-outlined text-secondary-fixed-dim"
+                style="font-size: 48px"
+                >directions_car</span
+              >
+            </div>
+          </div>
+          <div class="p-4 flex flex-col gap-2">
+            <div class="font-label-sm text-label-sm text-secondary">
+              1:43 SCALE
+            </div>
+            <div
+              class="font-body-md text-body-md text-ink-black font-semibold truncate group-hover:text-primary transition-colors"
+            >
+              Product Title
+            </div>
+            <div class="font-label-md text-label-md text-ink-black">$0.00</div>
+          </div>
+        </div>
+        <!-- Product Card Skeleton 8 -->
+        <div
+          class="bg-surface-white border border-surface-variant hover:shadow-[0px_4px_0px_rgba(95,94,94,0.1)] transition-shadow duration-200 group"
+        >
+          <div
+            class="aspect-square bg-surface-container-high relative overflow-hidden"
+          >
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span
+                class="material-symbols-outlined text-secondary-fixed-dim"
+                style="font-size: 48px"
+                >directions_car</span
+              >
+            </div>
+          </div>
+          <div class="p-4 flex flex-col gap-2">
+            <div class="font-label-sm text-label-sm text-secondary">
+              1:64 SCALE
+            </div>
+            <div
+              class="font-body-md text-body-md text-ink-black font-semibold truncate group-hover:text-primary transition-colors"
+            >
+              Product Title
+            </div>
+            <div class="font-label-md text-label-md text-ink-black">$0.00</div>
+          </div>
+        </div>
+      </div>
+      <!-- Pagination -->
+      <div class="flex justify-center items-center mt-12 gap-2">
+        <button
+          class="w-10 h-10 flex items-center justify-center border border-ink-black text-ink-black hover:bg-ink-black hover:text-surface-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled=""
+        >
+          <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <div class="flex gap-1 font-label-md text-label-md">
+          <button
+            class="w-10 h-10 flex items-center justify-center bg-primary text-surface-white"
+          >
+            1
+          </button>
+          <button
+            class="w-10 h-10 flex items-center justify-center border border-surface-variant text-ink-black hover:bg-surface-container transition-colors"
+          >
+            2
+          </button>
+          <button
+            class="w-10 h-10 flex items-center justify-center border border-surface-variant text-ink-black hover:bg-surface-container transition-colors"
+          >
+            3
+          </button>
+          <span
+            class="w-10 h-10 flex items-center justify-center text-secondary-fixed-dim"
+            >...</span
+          >
+          <button
+            class="w-10 h-10 flex items-center justify-center border border-surface-variant text-ink-black hover:bg-surface-container transition-colors"
+          >
+            12
+          </button>
+        </div>
+        <button
+          class="w-10 h-10 flex items-center justify-center border border-ink-black text-ink-black hover:bg-ink-black hover:text-surface-white transition-colors"
+        >
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer
+      class="w-full py-12 px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-gutter bg-ink-black dark:bg-ink-black border-t-4 border-primary flat no shadows mt-auto"
+    >
+      <div class="flex flex-col gap-4">
+        <div class="font-label-md text-label-md text-primary">DIECAST ZONE</div>
+        <div
+          class="font-body-md text-body-md text-surface-white dark:text-surface-white"
+        >
+          © 2024 DIECAST ZONE. ENGINEERED FOR COLLECTORS.
+        </div>
+      </div>
+      <div
+        class="flex flex-col sm:flex-row gap-6 md:justify-end items-start font-body-md text-body-md"
+      >
+        <a
+          class="text-secondary-fixed-dim hover:text-surface-white transition-colors focus:outline-none"
+          href="#"
+          >About Us</a
+        >
+        <a
+          class="text-secondary-fixed-dim hover:text-surface-white transition-colors focus:outline-none"
+          href="#"
+          >Shipping Policy</a
+        >
+        <a
+          class="text-secondary-fixed-dim hover:text-surface-white transition-colors focus:outline-none"
+          href="#"
+          >Technical Specs</a
+        >
+        <a
+          class="text-secondary-fixed-dim hover:text-surface-white transition-colors focus:outline-none"
+          href="#"
+          >Contact Support</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>
