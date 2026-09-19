@@ -88,6 +88,7 @@
         flex-shrink: 0;
       }
     </style>
+<<<<<<< HEAD
   </head>
 
   <body class="min-h-screen bg-surface text-ink-black flex flex-col">
@@ -501,3 +502,115 @@
     <script type="module" src="../js/auth.js"></script>
   </body>
 </html>
+=======
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<!-- Suppressed navigation shell based on Contextual State & Identity mandate for transactional pages (Login/Registration) -->
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop relative">
+<!-- Abstract Background -->
+<div class="absolute inset-0 z-0 bg-surface-white" style="background-image: radial-gradient(circle at 10% 20%, rgb(255, 234, 234) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgb(240, 240, 240) 0%, transparent 40%);"></div>
+<div class="relative z-10 w-full max-w-md bg-surface-white border border-secondary-fixed-dim rounded-DEFAULT p-8 shadow-sm">
+<div class="flex justify-center mb-8">
+<img alt="DiecastZone Logo" class="h-20 w-20 object-contain rounded-DEFAULT" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB62tX9FBDdqYywFMobtla7On49rbKAkHy4oXuHoZrjjsa_2Lygh7FSlpVH1946QcSOX3y9HtuDTEFI9I6BPKOBfRZaA1AMjsPuKAkmExHDKi0K4liWOpL-4runV7dkHivrxWeMQnDAU2S-QKesC-1-fpRCN84K4c5xhXNjqaw4nVdBZn4RelKgNHgmpzTvY_uHJR8V3jodw5KwuCJFUUSo6RWvkgQU1gx-86b3zlT_eIBSVJdyyShLWQ"/>
+</div>
+<div class="flex border-b border-secondary-fixed-dim mb-8">
+<button class="flex-1 pb-4 font-headline-md text-headline-md text-primary border-b-2 border-primary transition-colors" id="btn-login" onclick="toggleView('login')">
+                    Login
+                </button>
+<button class="flex-1 pb-4 font-headline-md text-headline-md text-secondary hover:text-ink-black transition-colors" id="btn-register" onclick="toggleView('register')">
+                    Register
+                </button>
+</div>
+<!-- Login Form -->
+<form class="space-y-6" id="form-login">
+<div>
+<label class="block font-label-md text-label-md text-ink-black mb-2" for="login-email">Email Address</label>
+<input class="w-full h-12 px-4 bg-surface border border-ink-black focus:border-2 focus:border-primary focus:ring-0 rounded-DEFAULT font-body-md text-body-md text-ink-black transition-all" id="login-email" placeholder="collector@diecastzone.com" required="" type="email"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-ink-black mb-2" for="login-password">Password</label>
+<input class="w-full h-12 px-4 bg-surface border border-ink-black focus:border-2 focus:border-primary focus:ring-0 rounded-DEFAULT font-body-md text-body-md text-ink-black transition-all" id="login-password" placeholder="••••••••" required="" type="password"/>
+</div>
+<div class="flex items-center justify-between">
+<label class="flex items-center">
+<input class="form-checkbox h-4 w-4 text-primary border-ink-black rounded-sm focus:ring-primary" type="checkbox"/>
+<span class="ml-2 font-body-md text-body-md text-secondary">Remember me</span>
+</label>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">Forgot Password?</a>
+</div>
+<button class="w-full h-12 bg-primary hover:bg-surface-tint text-surface-white font-label-md text-label-md rounded-DEFAULT transition-colors flex items-center justify-center gap-2 group" type="submit">
+<span>SIGN IN</span>
+<span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<p id="auth-status" class="mt-4 text-center text-sm" role="status"></p>
+<!-- Register Form (Hidden by default) -->
+<form class="space-y-6 hidden" id="form-register">
+<div>
+<label class="block font-label-md text-label-md text-ink-black mb-2" for="reg-email">Email Address</label>
+<input class="w-full h-12 px-4 bg-surface border border-ink-black focus:border-2 focus:border-primary focus:ring-0 rounded-DEFAULT font-body-md text-body-md text-ink-black transition-all" id="reg-email" placeholder="newcollector@diecastzone.com" required="" type="email"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-ink-black mb-2" for="reg-password">Password</label>
+<input class="w-full h-12 px-4 bg-surface border border-ink-black focus:border-2 focus:border-primary focus:ring-0 rounded-DEFAULT font-body-md text-body-md text-ink-black transition-all" id="reg-password" placeholder="Create a strong password" required="" type="password"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-ink-black mb-2" for="reg-confirm-password">Confirm Password</label>
+<input class="w-full h-12 px-4 bg-surface border border-ink-black focus:border-2 focus:border-primary focus:ring-0 rounded-DEFAULT font-body-md text-body-md text-ink-black transition-all" id="reg-confirm-password" placeholder="Repeat password" required="" type="password"/>
+</div>
+<button class="w-full h-12 bg-ink-black hover:bg-secondary text-surface-white font-label-md text-label-md rounded-DEFAULT transition-colors flex items-center justify-center gap-2 group" type="submit">
+<span>CREATE ACCOUNT</span>
+<span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform" data-icon="add_circle">add_circle</span>
+</button>
+<p class="text-center font-body-md text-body-md text-secondary mt-4">
+                    By registering, you agree to our <a class="text-primary hover:underline" href="#">Terms of Service</a> and <a class="text-primary hover:underline" href="#">Privacy Policy</a>.
+                </p>
+</form>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-gutter bg-ink-black dark:bg-ink-black full-width border-t-4 border-primary flat no shadows focus:outline-none">
+<div>
+<span class="font-label-md text-label-md text-primary">DIECAST ZONE</span>
+<p class="font-body-md text-body-md text-surface-white dark:text-surface-white mt-4">© 2024 DIECAST ZONE. ENGINEERED FOR COLLECTORS.</p>
+</div>
+<div class="flex flex-col md:flex-row gap-8 justify-start md:justify-end">
+<a class="font-body-md text-body-md text-secondary-fixed-dim hover:text-surface-white transition-colors" href="#">About Us</a>
+<a class="font-body-md text-body-md text-secondary-fixed-dim hover:text-surface-white transition-colors" href="#">Shipping Policy</a>
+<a class="font-body-md text-body-md text-secondary-fixed-dim hover:text-surface-white transition-colors" href="#">Technical Specs</a>
+<a class="font-body-md text-body-md text-secondary-fixed-dim hover:text-surface-white transition-colors" href="#">Contact Support</a>
+</div>
+</footer>
+<script>
+        function toggleView(view) {
+            const loginForm = document.getElementById('form-login');
+            const registerForm = document.getElementById('form-register');
+            const btnLogin = document.getElementById('btn-login');
+            const btnRegister = document.getElementById('btn-register');
+
+            if (view === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                
+                btnLogin.classList.add('text-primary', 'border-b-2', 'border-primary');
+                btnLogin.classList.remove('text-secondary');
+                
+                btnRegister.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                btnRegister.classList.add('text-secondary');
+            } else {
+                registerForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+                
+                btnRegister.classList.add('text-primary', 'border-b-2', 'border-primary');
+                btnRegister.classList.remove('text-secondary');
+                
+                btnLogin.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                btnLogin.classList.add('text-secondary');
+            }
+        }
+    </script>
+    <script type="module" src="../JS/config/firebase.js"></script>
+    <script type="module" src="../JS/auth.js"></script>
+</body></html>
+>>>>>>> 0322ba8ad2fbddfbf8558bf2f5472efeb7ce56f5

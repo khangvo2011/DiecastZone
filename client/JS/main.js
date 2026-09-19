@@ -11,11 +11,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!productGrid) return;
 
+<<<<<<< HEAD
   const escapeHTML = (value) => {
     if (value === null || value === undefined) {
       return "";
     }
 
+=======
+  const renderLoading = () => {
+    productGrid.innerHTML = `
+      <div class="empty-state md:col-span-2 xl:col-span-4">
+        Loading products...
+      </div>
+    `;
+  };
+
+  const escapeHTML = (value) => {
+    if (value === null || value === undefined) return "";
+>>>>>>> 0322ba8ad2fbddfbf8558bf2f5472efeb7ce56f5
     return String(value)
       .replaceAll("&", "&amp;")
       .replaceAll("<", "&lt;")
@@ -25,12 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const formatPrice = (price) => {
+<<<<<<< HEAD
     const numericPrice = Number(price) || 0;
 
+=======
+    const numeric = Number(price) || 0;
+>>>>>>> 0322ba8ad2fbddfbf8558bf2f5472efeb7ce56f5
     return new Intl.NumberFormat("vi-VN", {
       style: "currency",
       currency: "VND",
       maximumFractionDigits: 0,
+<<<<<<< HEAD
     }).format(numericPrice);
   };
 
@@ -56,17 +74,29 @@ document.addEventListener("DOMContentLoaded", () => {
         Unable to load products.
       </div>
     `;
+=======
+    }).format(numeric);
+>>>>>>> 0322ba8ad2fbddfbf8558bf2f5472efeb7ce56f5
   };
 
   const renderProducts = (products) => {
     if (!Array.isArray(products) || products.length === 0) {
+<<<<<<< HEAD
       renderEmpty();
+=======
+      productGrid.innerHTML = `
+        <div class="empty-state md:col-span-2 xl:col-span-4">
+          No products available right now.
+        </div>
+      `;
+>>>>>>> 0322ba8ad2fbddfbf8558bf2f5472efeb7ce56f5
       return;
     }
 
     productGrid.innerHTML = products
       .slice(0, 8)
       .map((product) => {
+<<<<<<< HEAD
         const imageUrl =
           product.image_url ||
           product.imageUrl ||
@@ -112,6 +142,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 >
                   Add
                 </button>
+=======
+        const imageUrl = product.image_url || product.imageUrl || "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=80";
+        const name = escapeHTML(product.name || "Untitled product");
+        const description = escapeHTML(product.description || "Collector-grade diecast model");
+
+        return `
+          <article class="product-card">
+            <img class="product-card__image" src="${imageUrl}" alt="${name}" />
+            <div class="product-card__content">
+              <span class="product-card__tag">Featured</span>
+              <h4 class="product-card__title">${name}</h4>
+              <p class="mt-2 line-clamp-2 text-sm text-slate-600">${description}</p>
+              <div class="product-card__meta">
+                <span class="product-card__price">${formatPrice(product.price)}</span>
+                <button class="product-card__button" type="button">Add</button>
+>>>>>>> 0322ba8ad2fbddfbf8558bf2f5472efeb7ce56f5
               </div>
             </div>
           </article>
@@ -120,6 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   };
 
+<<<<<<< HEAD
   const loadProducts = async () => {
     renderLoading();
 
@@ -140,4 +187,25 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   loadProducts();
+=======
+  renderLoading();
+
+  fetch("http://localhost:3000/api/products")
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
+
+      const data = await response.json();
+      renderProducts(data);
+    })
+    .catch((error) => {
+      console.error(error);
+      productGrid.innerHTML = `
+        <div class="empty-state md:col-span-2 xl:col-span-4">
+          Unable to load products from the server. Please make sure the backend is running on localhost:3000.
+        </div>
+      `;
+    });
+>>>>>>> 0322ba8ad2fbddfbf8558bf2f5472efeb7ce56f5
 });

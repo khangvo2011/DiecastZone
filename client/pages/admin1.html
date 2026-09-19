@@ -1,4 +1,3 @@
-```html
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,8 +9,19 @@
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
+    <!-- Firebase auth must be initialized before admin requests are made. -->
+    <script type="module" src="../JS/config/firebase.js"></script>
+
     <!-- Admin JS -->
+<<<<<<< HEAD
     <script src="/client/JS/admin.js" defer></script>
+=======
+    <script src="../JS/api.js" defer></script>
+    <script src="../JS/admin.js" defer></script>
+    <script src="../JS/categories/category.js" defer></script>
+    <script src="../JS/products/product.js" defer></script>
+    <script src="../JS/orders/order.js" defer></script>
+>>>>>>> 0322ba8ad2fbddfbf8558bf2f5472efeb7ce56f5
 
     <!-- Fonts -->
     <link
@@ -367,4 +377,4 @@
     </div>
   </body>
 </html>
-```
+
