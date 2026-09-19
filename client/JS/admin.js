@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // =========================
+  // =========================================================
   // DOM
-  // =========================
+  // =========================================================
 
   const main = document.getElementById("admin-main");
 
@@ -11,30 +11,93 @@ document.addEventListener("DOMContentLoaded", () => {
   const customersLink = document.getElementById("customers-link");
 
   if (!main) {
-    console.error("Cannot find #admin-main");
+    console.error("admin.js: Cannot find #admin-main");
     return;
   }
 
-  // =========================
+  // =========================================================
   // API
-  // =========================
+  // =========================================================
 
   const API = {
     categories: "/api/categories",
     products: "/api/products",
   };
 
-  // =========================
-  // Sidebar
-  // =========================
+  // =========================================================
+  // HELPER
+  // =========================================================
+
+  function escapeHTML(value) {
+    if (value === null || value === undefined) {
+      return "";
+    }
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function formatDate(value) {
+    if (!value) {
+      return "N/A";
+    }
+
+    try {
+      // Firestore Timestamp trả về object có seconds
+      if (value.seconds) {
+        return new Date(value.seconds * 1000).toLocaleString();
+      }
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return String(value);
+      }
+
+      return date.toLocaleString();
+    } catch (error) {
+      return String(value);
+    }
+  }
+
+  function formatPrice(price) {
+    if (price === null || price === undefined || price === "") {
+      return "N/A";
+    }
+
+    return Number(price).toLocaleString("en-US");
+  }
+
+  async function request(url, options = {}) {
+    const response = await fetch(url, options);
+
+    let data = null;
+
+    try {
+      data = await response.json();
+    } catch (error) {
+      data = null;
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        data?.message || data?.error || `Request failed: ${response.status}`,
+      );
+    }
+
+    return data;
+  }
+
+  // =========================================================
+  // SIDEBAR
+  // =========================================================
 
   function setActiveLink(activeLink) {
-    const links = [
-      ordersLink,
-      inventoryLink,
-      categoryLink,
-      customersLink,
-    ];
+    const links = [ordersLink, inventoryLink, categoryLink, customersLink];
 
     links.forEach((link) => {
       if (!link) return;
@@ -49,25 +112,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // =========================
+  // =========================================================
   // ORDERS
-  // =========================
+  // =========================================================
 
   function renderOrders() {
     setActiveLink(ordersLink);
 
     main.innerHTML = `
       <div class="p-8">
-        <div class="flex items-center justify-between mb-8">
-          <div>
-            <p class="font-mono text-xs uppercase tracking-widest text-primary mb-2">
-              Admin
-            </p>
 
-            <h1 class="text-3xl font-bold uppercase">
-              Order Management
-            </h1>
-          </div>
+        <div class="mb-8">
+          <p class="font-mono text-xs uppercase tracking-widest text-primary mb-2">
+            Admin
+          </p>
+
+          <h1 class="text-3xl font-bold uppercase">
+            Order Management
+          </h1>
         </div>
 
         <div class="border border-gray-200 bg-white p-8">
@@ -75,13 +137,14 @@ document.addEventListener("DOMContentLoaded", () => {
             Order management has not been connected yet.
           </p>
         </div>
+
       </div>
     `;
   }
 
-  // =========================
-  // CATEGORY MANAGEMENT
-  // =========================
+  // =========================================================
+  // CATEGORY
+  // =========================================================
 
   function renderCategories() {
     setActiveLink(categoryLink);
@@ -90,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="p-8">
 
         <div class="flex items-center justify-between mb-8">
+
           <div>
             <p class="font-mono text-xs uppercase tracking-widest text-primary mb-2">
               Management
@@ -103,10 +167,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <button
             id="add-category-button"
             type="button"
-            class="bg-primary text-white px-5 py-3 uppercase text-sm font-bold hover:opacity-90 transition"
+            class="bg-primary text-white px-5 py-3 uppercase text-sm font-bold hover:opacity-90"
           >
             + Add Category
           </button>
+
         </div>
 
         <div id="category-list">
@@ -118,11 +183,9 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-    const addButton = document.getElementById("add-category-button");
-
-    if (addButton) {
-      addButton.addEventListener("click", renderAddCategory);
-    }
+    document
+      .getElementById("add-category-button")
+      ?.addEventListener("click", renderAddCategory);
 
     loadCategories();
   }
@@ -130,16 +193,12 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadCategories() {
     const container = document.getElementById("category-list");
 
-    if (!container) return;
+    if (!container) {
+      return;
+    }
 
     try {
-      const response = await fetch(API.categories);
-
-      if (!response.ok) {
-        throw new Error("Failed to load categories");
-      }
-
-      const categories = await response.json();
+      const categories = await request(API.categories);
 
       if (!Array.isArray(categories) || categories.length === 0) {
         container.innerHTML = `
@@ -157,65 +216,74 @@ document.addEventListener("DOMContentLoaded", () => {
         .map((category) => {
           return `
             <div
-              class="bg-white border border-gray-200 p-6 flex items-center justify-between mb-4"
+              class="bg-white border border-gray-200 p-6 mb-4 flex items-center justify-between"
             >
+
               <div>
                 <h3 class="text-lg font-bold uppercase">
                   ${escapeHTML(category.name)}
                 </h3>
 
                 <p class="text-xs text-gray-400 mt-2 font-mono">
-                  ${category.createDate || ""}
+                  Created:
+                  ${formatDate(category.createDate)}
                 </p>
               </div>
 
               <button
                 type="button"
                 class="delete-category-button text-red-600 text-sm font-bold uppercase hover:underline"
-                data-id="${category.id}"
+                data-id="${escapeHTML(category.id)}"
               >
                 Delete
               </button>
+
             </div>
           `;
         })
         .join("");
 
-      const deleteButtons = document.querySelectorAll(
-        ".delete-category-button"
-      );
-
-      deleteButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const id = button.dataset.id;
-
-          if (id) {
-            deleteCategory(id);
-          }
-        });
-      });
+      // Event delegation
+      container.addEventListener("click", handleCategoryClick);
     } catch (error) {
-      console.error(error);
+      console.error("loadCategories:", error);
 
       container.innerHTML = `
         <div class="border border-red-200 bg-red-50 p-6">
           <p class="text-red-600">
-            Failed to load categories.
+            ${escapeHTML(error.message)}
           </p>
         </div>
       `;
     }
   }
 
-  // =========================
+  function handleCategoryClick(event) {
+    const button = event.target.closest(".delete-category-button");
+
+    if (!button) {
+      return;
+    }
+
+    const id = button.dataset.id;
+
+    if (id) {
+      deleteCategory(id);
+    }
+  }
+
+  // =========================================================
   // ADD CATEGORY
-  // =========================
+  // =========================================================
 
   function renderAddCategory() {
+    setActiveLink(categoryLink);
+
     main.innerHTML = `
       <div class="p-8">
 
         <div class="mb-8">
+
           <button
             id="back-category-button"
             type="button"
@@ -231,6 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <h1 class="text-3xl font-bold uppercase">
             Add Category
           </h1>
+
         </div>
 
         <form
@@ -239,6 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
         >
 
           <div class="mb-6">
+
             <label
               for="category-name"
               class="block text-sm font-bold uppercase mb-2"
@@ -254,6 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
               class="w-full border border-gray-300 px-4 py-3 outline-none focus:border-black"
               placeholder="Enter category name"
             />
+
           </div>
 
           <button
@@ -268,81 +339,80 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-    const backButton = document.getElementById("back-category-button");
-    const form = document.getElementById("category-form");
+    document
+      .getElementById("back-category-button")
+      ?.addEventListener("click", renderCategories);
 
-    if (backButton) {
-      backButton.addEventListener("click", renderCategories);
-    }
-
-    if (form) {
-      form.addEventListener("submit", handleCategorySubmit);
-    }
+    document
+      .getElementById("category-form")
+      ?.addEventListener("submit", handleCategorySubmit);
   }
 
   async function handleCategorySubmit(event) {
     event.preventDefault();
 
-    const form = event.target;
-    const formData = new FormData(form);
+    const form = event.currentTarget;
+    const nameInput = form.elements.name;
 
-    const name = formData.get("name");
+    const name = nameInput.value.trim();
 
-    if (!name || !name.trim()) {
+    if (!name) {
       alert("Please enter a category name.");
       return;
-    } 
+    }
 
     try {
-      const response = await fetch(API.categories, {
+      await request(API.categories, {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
         },
+
         body: JSON.stringify({
-          name: name.trim(),
+          name: name,
         }),
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to create category");
-      }
 
       alert("Category created successfully.");
 
       renderCategories();
     } catch (error) {
-      console.error(error);
-      alert("Failed to create category.");
+      console.error("create category:", error);
+
+      alert(`Failed to create category.\n${error.message}`);
     }
   }
 
-  async function deleteCategory(id) {
-    const confirmed = confirm(
-      "Are you sure you want to delete this category?"
-    );
+  // =========================================================
+  // DELETE CATEGORY
+  // =========================================================
 
-    if (!confirmed) return;
+  async function deleteCategory(id) {
+    const confirmed = confirm("Are you sure you want to delete this category?");
+
+    if (!confirmed) {
+      return;
+    }
 
     try {
-      const response = await fetch(`${API.categories}/${id}`, {
+      await request(`${API.categories}/${encodeURIComponent(id)}`, {
         method: "DELETE",
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to delete category");
-      }
+      alert("Category deleted successfully.");
 
       loadCategories();
     } catch (error) {
-      console.error(error);
-      alert("Failed to delete category.");
+      console.error("delete category:", error);
+
+      alert(`Failed to delete category.\n${error.message}`);
     }
   }
 
-  // =========================
-  // PRODUCT MANAGEMENT
-  // =========================
+  // =========================================================
+  // PRODUCT
+  // =========================================================
 
   function renderProducts() {
     setActiveLink(inventoryLink);
@@ -351,6 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="p-8">
 
         <div class="flex items-center justify-between mb-8">
+
           <div>
             <p class="font-mono text-xs uppercase tracking-widest text-primary mb-2">
               Management
@@ -364,10 +435,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <button
             id="add-product-button"
             type="button"
-            class="bg-primary text-white px-5 py-3 uppercase text-sm font-bold hover:opacity-90 transition"
+            class="bg-primary text-white px-5 py-3 uppercase text-sm font-bold hover:opacity-90"
           >
             + Add Product
           </button>
+
         </div>
 
         <div id="product-list">
@@ -379,11 +451,9 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-    const addButton = document.getElementById("add-product-button");
-
-    if (addButton) {
-      addButton.addEventListener("click", renderAddProduct);
-    }
+    document
+      .getElementById("add-product-button")
+      ?.addEventListener("click", renderAddProduct);
 
     loadProducts();
   }
@@ -391,16 +461,12 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadProducts() {
     const container = document.getElementById("product-list");
 
-    if (!container) return;
+    if (!container) {
+      return;
+    }
 
     try {
-      const response = await fetch(API.products);
-
-      if (!response.ok) {
-        throw new Error("Failed to load products");
-      }
-
-      const products = await response.json();
+      const products = await request(API.products);
 
       if (!Array.isArray(products) || products.length === 0) {
         container.innerHTML = `
@@ -416,27 +482,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
       container.innerHTML = products
         .map((product) => {
+          const image = product.image_url
+            ? `
+              <img
+                src="${escapeHTML(product.image_url)}"
+                alt="${escapeHTML(product.name)}"
+                class="w-full h-full object-cover"
+              >
+            `
+            : `
+              <div class="w-full h-full flex items-center justify-center text-gray-400 text-xs uppercase">
+                No Image
+              </div>
+            `;
+
           return `
             <div
               class="bg-white border border-gray-200 p-5 mb-4 flex gap-6 items-center"
             >
 
               <div class="w-32 h-32 bg-gray-100 flex-shrink-0">
-                ${
-                  product.image_url
-                    ? `
-                      <img
-                        src="${escapeHTML(product.image_url)}"
-                        alt="${escapeHTML(product.name)}"
-                        class="w-full h-full object-cover"
-                      />
-                    `
-                    : `
-                      <div class="w-full h-full flex items-center justify-center text-gray-400 text-xs uppercase">
-                        No Image
-                      </div>
-                    `
-                }
+                ${image}
               </div>
 
               <div class="flex-1">
@@ -446,11 +512,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 </h3>
 
                 <p class="text-primary font-bold mt-2">
-                  ${product.price ?? "N/A"}
+                  ${formatPrice(product.price)}
                 </p>
 
                 <p class="text-xs text-gray-400 mt-2">
-                  ${product.createAt || ""}
+                  Created:
+                  ${formatDate(product.createAt)}
                 </p>
 
                 ${
@@ -468,7 +535,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <button
                 type="button"
                 class="delete-product-button text-red-600 text-sm font-bold uppercase hover:underline"
-                data-id="${product.id}"
+                data-id="${escapeHTML(product.id)}"
               >
                 Delete
               </button>
@@ -478,37 +545,41 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .join("");
 
-      const deleteButtons = document.querySelectorAll(
-        ".delete-product-button"
-      );
-
-      deleteButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const id = button.dataset.id;
-
-          if (id) {
-            deleteProduct(id);
-          }
-        });
-      });
+      container.addEventListener("click", handleProductClick);
     } catch (error) {
-      console.error(error);
+      console.error("loadProducts:", error);
 
       container.innerHTML = `
         <div class="border border-red-200 bg-red-50 p-6">
           <p class="text-red-600">
-            Failed to load products.
+            ${escapeHTML(error.message)}
           </p>
         </div>
       `;
     }
   }
 
-  // =========================
+  function handleProductClick(event) {
+    const button = event.target.closest(".delete-product-button");
+
+    if (!button) {
+      return;
+    }
+
+    const id = button.dataset.id;
+
+    if (id) {
+      deleteProduct(id);
+    }
+  }
+
+  // =========================================================
   // ADD PRODUCT
-  // =========================
+  // =========================================================
 
   function renderAddProduct() {
+    setActiveLink(inventoryLink);
+
     main.innerHTML = `
       <div class="p-8">
 
@@ -539,6 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
         >
 
           <div class="mb-5">
+
             <label
               for="product-name"
               class="block text-sm font-bold uppercase mb-2"
@@ -553,9 +625,11 @@ document.addEventListener("DOMContentLoaded", () => {
               required
               class="w-full border border-gray-300 px-4 py-3 outline-none focus:border-black"
             />
+
           </div>
 
           <div class="mb-5">
+
             <label
               for="product-price"
               class="block text-sm font-bold uppercase mb-2"
@@ -571,9 +645,11 @@ document.addEventListener("DOMContentLoaded", () => {
               required
               class="w-full border border-gray-300 px-4 py-3 outline-none focus:border-black"
             />
+
           </div>
 
           <div class="mb-5">
+
             <label
               for="product-category"
               class="block text-sm font-bold uppercase mb-2"
@@ -591,9 +667,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 Select category
               </option>
             </select>
+
           </div>
 
           <div class="mb-5">
+
             <label
               for="product-description"
               class="block text-sm font-bold uppercase mb-2"
@@ -607,9 +685,11 @@ document.addEventListener("DOMContentLoaded", () => {
               rows="5"
               class="w-full border border-gray-300 px-4 py-3 outline-none focus:border-black"
             ></textarea>
+
           </div>
 
           <div class="mb-8">
+
             <label
               for="product-image"
               class="block text-sm font-bold uppercase mb-2"
@@ -624,6 +704,7 @@ document.addEventListener("DOMContentLoaded", () => {
               accept="image/*"
               class="w-full border border-gray-300 px-4 py-3"
             />
+
           </div>
 
           <button
@@ -638,33 +719,34 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-    const backButton = document.getElementById("back-product-button");
-    const form = document.getElementById("product-form");
+    document
+      .getElementById("back-product-button")
+      ?.addEventListener("click", renderProducts);
 
-    if (backButton) {
-      backButton.addEventListener("click", renderProducts);
-    }
-
-    if (form) {
-      form.addEventListener("submit", handleProductSubmit);
-    }
+    document
+      .getElementById("product-form")
+      ?.addEventListener("submit", handleProductSubmit);
 
     loadCategoryOptions();
   }
 
+  // =========================================================
+  // CATEGORY OPTIONS
+  // =========================================================
+
   async function loadCategoryOptions() {
     const select = document.getElementById("product-category");
 
-    if (!select) return;
+    if (!select) {
+      return;
+    }
 
     try {
-      const response = await fetch(API.categories);
+      const categories = await request(API.categories);
 
-      if (!response.ok) {
-        throw new Error("Failed to load categories");
+      if (!Array.isArray(categories)) {
+        return;
       }
-
-      const categories = await response.json();
 
       categories.forEach((category) => {
         const option = document.createElement("option");
@@ -675,61 +757,92 @@ document.addEventListener("DOMContentLoaded", () => {
         select.appendChild(option);
       });
     } catch (error) {
-      console.error(error);
+      console.error("loadCategoryOptions:", error);
+
+      select.innerHTML = `
+        <option value="">
+          Failed to load categories
+        </option>
+      `;
     }
   }
+
+  // =========================================================
+  // CREATE PRODUCT
+  // =========================================================
 
   async function handleProductSubmit(event) {
     event.preventDefault();
 
-    const form = event.target;
+    const form = event.currentTarget;
     const formData = new FormData(form);
 
+    const name = formData.get("name")?.toString().trim();
+
+    const price = formData.get("price");
+
+    const categoryId = formData.get("categoryId");
+
+    if (!name) {
+      alert("Please enter product name.");
+      return;
+    }
+
+    if (price === null || price === "" || Number(price) < 0) {
+      alert("Please enter a valid price.");
+      return;
+    }
+
+    if (!categoryId) {
+      alert("Please select a category.");
+      return;
+    }
+
     try {
-      const response = await fetch(API.products, {
+      await request(API.products, {
         method: "POST",
         body: formData,
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to create product");
-      }
 
       alert("Product created successfully.");
 
       renderProducts();
     } catch (error) {
-      console.error(error);
-      alert("Failed to create product.");
+      console.error("create product:", error);
+
+      alert(`Failed to create product.\n${error.message}`);
     }
   }
 
-  async function deleteProduct(id) {
-    const confirmed = confirm(
-      "Are you sure you want to delete this product?"
-    );
+  // =========================================================
+  // DELETE PRODUCT
+  // =========================================================
 
-    if (!confirmed) return;
+  async function deleteProduct(id) {
+    const confirmed = confirm("Are you sure you want to delete this product?");
+
+    if (!confirmed) {
+      return;
+    }
 
     try {
-      const response = await fetch(`${API.products}/${id}`, {
+      await request(`${API.products}/${encodeURIComponent(id)}`, {
         method: "DELETE",
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to delete product");
-      }
+      alert("Product deleted successfully.");
 
       loadProducts();
     } catch (error) {
-      console.error(error);
-      alert("Failed to delete product.");
+      console.error("delete product:", error);
+
+      alert(`Failed to delete product.\n${error.message}`);
     }
   }
 
-  // =========================
+  // =========================================================
   // CUSTOMERS
-  // =========================
+  // =========================================================
 
   function renderCustomers() {
     setActiveLink(customersLink);
@@ -738,6 +851,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="p-8">
 
         <div class="mb-8">
+
           <p class="font-mono text-xs uppercase tracking-widest text-primary mb-2">
             Management
           </p>
@@ -745,6 +859,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <h1 class="text-3xl font-bold uppercase">
             Customer Management
           </h1>
+
         </div>
 
         <div class="border border-gray-200 bg-white p-8">
@@ -757,9 +872,9 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
-  // =========================
-  // EVENT LISTENERS
-  // =========================
+  // =========================================================
+  // SIDEBAR EVENTS
+  // =========================================================
 
   if (ordersLink) {
     ordersLink.addEventListener("click", (event) => {
@@ -789,26 +904,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =========================
-  // HTML ESCAPE
-  // =========================
-
-  function escapeHTML(value) {
-    if (value === null || value === undefined) {
-      return "";
-    }
-
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-  // =========================
-  // DEFAULT PAGE
-  // =========================
+  // =========================================================
+  // DEFAULT
+  // =========================================================
 
   renderOrders();
 });

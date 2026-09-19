@@ -1,12 +1,13 @@
 const API_PRODUCTS = "/api/products";
 
-export async function deleteProduct(id) {
+export async function updateProduct(id, formData) {
   const response = await fetch(`${API_PRODUCTS}/${id}`, {
-    method: "DELETE",
+    method: "PUT",
+    body: formData,
   });
 
   if (!response.ok) {
-    throw new Error("Failed to delete product");
+    throw new Error("Failed to update product");
   }
 
   return await response.json();
