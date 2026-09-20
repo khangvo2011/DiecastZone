@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-document.addEventListener("DOMContentLoaded", () => {
-  // =========================================================
-  // DOM
-  // =========================================================
-=======
 window.AdminDashboard = window.AdminDashboard || {};
->>>>>>> 0322ba8ad2fbddfbf8558bf2f5472efeb7ce56f5
 
 const admin = window.AdminDashboard;
 
@@ -44,8 +37,15 @@ admin.helpers.requestJson = async function (url, options = {}) {
     : await response.text();
 
   if (!response.ok) {
-    const errorPayload = payload && typeof payload === "object" ? payload : { message: String(payload || "Request failed") };
-    const message = errorPayload.message || errorPayload.error || JSON.stringify(errorPayload) || "Request failed";
+    const errorPayload =
+      payload && typeof payload === "object"
+        ? payload
+        : { message: String(payload || "Request failed") };
+    const message =
+      errorPayload.message ||
+      errorPayload.error ||
+      JSON.stringify(errorPayload) ||
+      "Request failed";
     throw new Error(message);
   }
 
@@ -115,20 +115,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("admin.js: Cannot find #admin-main");
     return;
   }
-
-<<<<<<< HEAD
-  // =========================================================
-  // API
-  // =========================================================
-
-  const API = {
-    categories: "/api/categories",
-    products: "/api/products",
-  };
-
-  // =========================================================
-  // HELPER
-  // =========================================================
 
   function escapeHTML(value) {
     if (value === null || value === undefined) {
@@ -979,7 +965,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // =========================================================
   if (!(await admin.requireAdmin())) return;
 
-
   if (ordersLink) {
     ordersLink.addEventListener("click", (event) => {
       event.preventDefault();
@@ -1008,7 +993,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
- HEAD
   // =========================================================
   // DEFAULT
   // =========================================================
@@ -1016,7 +1000,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   renderOrders();
 });
 
-  if (typeof admin.renderers.orders === "function") {
-    admin.renderPage("orders");
-  }
-});
+if (typeof admin.renderers.orders === "function") {
+  admin.renderPage("orders");
+}

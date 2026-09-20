@@ -11,14 +11,10 @@ async function apiRequest(endpoint, options = {}) {
     },
   };
 
-<<<<<<< HEAD
-=======
   if (window.FirebaseAuth?.auth.currentUser) {
     const token = await window.FirebaseAuth.auth.currentUser.getIdToken();
     config.headers.Authorization = `Bearer ${token}`;
   }
-
->>>>>>> 0322ba8ad2fbddfbf8558bf2f5472efeb7ce56f5
   if (config.body && typeof config.body !== "string") {
     config.body = JSON.stringify(config.body);
   }
