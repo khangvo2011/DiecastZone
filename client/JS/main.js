@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const productGrid = document.getElementById("product-grid");
   const menuBtn = document.getElementById("menu-btn");
   const mobileMenu = document.getElementById("mobile-menu");
+  const sortSelect = document.getElementById("sort");
+  const categoryButtons = document.querySelectorAll(".category-filter");
 
   if (menuBtn && mobileMenu) {
     menuBtn.addEventListener("click", () => {
@@ -26,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const formatPrice = (price) => {
     const numericPrice = Number(price) || 0;
+
     return new Intl.NumberFormat("vi-VN", {
       style: "currency",
       currency: "VND",
@@ -81,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <article class="product-card">
             <img
               class="product-card__image"
-              src="${imageUrl}"
+              src="${escapeHTML(imageUrl)}"
               alt="${name}"
               loading="lazy"
             />
@@ -107,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button
                   class="product-card__button"
                   type="button"
-                  data-product-id="${product._id || ""}"
+                  data-product-id="${product._id || product.id || ""}"
                 >
                   Add
                 </button>
@@ -119,21 +122,146 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   };
 
+  const filterProducts = (products, categoryId, sort) => {
+    let filteredProducts = [...products];
+
+    if (categoryId !== "all") {
+      filteredProducts = filteredProducts.filter((product) => {
+        const productCategoryId =
+          typeof product.categoryId === "object"
+            ? product.categoryId?._id || product.categoryId?.id
+            : product.categoryId;
+
+        return String(productCategoryId) === String(categoryId);
+      });
+    }
+
+    switch (sort) {
+      case "newest":
+        filteredProducts.sort((a, b) => {
+          return new Date(b.createAt) - new Date(a.createAt);
+        });
+        break;
+
+      case "price-asc":
+        filteredProducts.sort((a, b) => {
+          return Number(a.price) - Number(b.price);
+        });
+        break;
+
+      case "price-desc":
+        filteredProducts.sort((a, b) => {
+          return Number(b.price) - Number(a.price);
+        });
+        break;
+    }
+
+    return filteredProducts;
+  };
+
+  let allProducts = [];
+  let allCategories = [];
+
+  const updateProducts = () => {
+    const activeButton = document.querySelector(".category-filter.bg-primary");
+
+    const selectedCategory = activeButton?.dataset.category || "all";
+
+    const selectedSort = sortSelect ? sortSelect.value : "newest";
+
+    const filteredProducts = filterProducts(
+      allProducts,
+      selectedCategory,
+      selectedSort,
+    );
+
+    renderProducts(filteredProducts);
+  };
+
+  const setupCategoryButtons = () => {
+    categoryButtons.forEach((button) => {
+      const categoryName = button.dataset.category;
+
+      if (categoryName === "all") {
+        button.dataset.category = "all";
+        return;
+      }
+
+      const category = allCategories.find(
+        (item) => item.name.toLowerCase() === categoryName.toLowerCase(),
+      );
+
+      if (category) {
+        button.dataset.category = category.id || category._id;
+      }
+    });
+  };
+
+  categoryButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      categoryButtons.forEach((btn) => {
+        btn.classList.remove(
+          "bg-primary",
+          "text-surface-white",
+          "border-primary",
+        );
+
+        btn.classList.add(
+          "bg-surface-white",
+          "text-ink-black",
+          "border-ink-black",
+        );
+      });
+
+      button.classList.remove(
+        "bg-surface-white",
+        "text-ink-black",
+        "border-ink-black",
+      );
+
+      button.classList.add(
+        "bg-primary",
+        "text-surface-white",
+        "border-primary",
+      );
+
+      updateProducts();
+    });
+  });
+
+  if (sortSelect) {
+    sortSelect.addEventListener("change", () => {
+      updateProducts();
+    });
+  }
+
   const loadProducts = async () => {
     renderLoading();
 
     try {
-      const response = await fetch("http://localhost:3000/api/products");
+      const [productsResponse, categoriesResponse] = await Promise.all([
+        fetch("http://localhost:3000/api/products"),
+        fetch("http://localhost:3000/api/categories"),
+      ]);
 
-      if (!response.ok) {
-        throw new Error(`Failed to fetch products: ${response.status}`);
+      if (!productsResponse.ok) {
+        throw new Error(`Failed to fetch products: ${productsResponse.status}`);
       }
 
-      const products = await response.json();
+      if (!categoriesResponse.ok) {
+        throw new Error(
+          `Failed to fetch categories: ${categoriesResponse.status}`,
+        );
+      }
 
-      renderProducts(products);
+      allProducts = await productsResponse.json();
+      allCategories = await categoriesResponse.json();
+
+      setupCategoryButtons();
+      updateProducts();
     } catch (error) {
       console.error("Product loading error:", error);
+
       renderError();
     }
   };

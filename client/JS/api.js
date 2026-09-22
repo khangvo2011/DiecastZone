@@ -67,3 +67,15 @@ if (typeof module !== "undefined" && module.exports) {
 if (typeof globalThis !== "undefined") {
   globalThis.API_BASE_URL = API_BASE_URL;
 }
+
+window.API = window.API || {};
+
+window.API.getProducts = async function () {
+  const response = await fetch("http://localhost:3000/api/products");
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch products: ${response.status}`);
+  }
+
+  return await response.json();
+};

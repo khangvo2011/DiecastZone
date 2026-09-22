@@ -48,7 +48,9 @@ adminProduct.loadProducts = async function () {
   if (!container) return;
 
   try {
-    const products = await adminProduct.helpers.requestJson(adminProduct.api.products);
+    const products = await adminProduct.helpers.requestJson(
+      adminProduct.api.products,
+    );
 
     if (!Array.isArray(products) || products.length === 0) {
       container.innerHTML = `
@@ -90,7 +92,7 @@ adminProduct.loadProducts = async function () {
               Delete
             </button>
           </div>
-        `
+        `,
       )
       .join("");
 
@@ -165,7 +167,10 @@ adminProduct.renderers.addProduct = function () {
   const backButton = document.getElementById("back-product-button");
   const form = document.getElementById("product-form");
 
-  if (backButton) backButton.addEventListener("click", () => adminProduct.renderers.products());
+  if (backButton)
+    backButton.addEventListener("click", () =>
+      adminProduct.renderers.products(),
+    );
   if (form) form.addEventListener("submit", adminProduct.handleProductSubmit);
 
   adminProduct.loadCategoryOptions();
@@ -176,7 +181,9 @@ adminProduct.loadCategoryOptions = async function () {
   if (!select) return;
 
   try {
-    const categories = await adminProduct.helpers.requestJson(adminProduct.api.categories);
+    const categories = await adminProduct.helpers.requestJson(
+      adminProduct.api.categories,
+    );
     categories.forEach((category) => {
       const option = document.createElement("option");
       option.value = category.id;
@@ -212,9 +219,12 @@ adminProduct.deleteProduct = async function (id) {
   if (!confirmed) return;
 
   try {
-    await adminProduct.helpers.requestJson(`${adminProduct.api.products}/${id}`, {
-      method: "DELETE",
-    });
+    await adminProduct.helpers.requestJson(
+      `${adminProduct.api.products}/${id}`,
+      {
+        method: "DELETE",
+      },
+    );
 
     adminProduct.loadProducts();
   } catch (error) {
@@ -222,3 +232,4 @@ adminProduct.deleteProduct = async function (id) {
     alert("Failed to delete product.");
   }
 };
+

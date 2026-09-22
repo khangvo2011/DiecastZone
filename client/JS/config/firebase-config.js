@@ -15,15 +15,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAxWhc-0Ex2ubRKKjwUK6oOBj2Vj_syZDM",
-  authDomain: "coffee-managenments-project.firebaseapp.com",
-  projectId: "coffee-managenments-project",
-  storageBucket: "coffee-managenments-project.firebasestorage.app",
-  messagingSenderId: "141430650964",
-  appId: "1:141430650964:web:fdf37b178ef4291cc2d5c1",
-  measurementId: "G-6D5FPV873L",
+  apiKey: "AIzaSyBlA7_HvrpzGqRoAutXznKjFfpF7NJsYKA",
+  authDomain: "diecast-zone.firebaseapp.com",
+  projectId: "diecast-zone",
+  storageBucket: "diecast-zone.firebasestorage.app",
+  messagingSenderId: "233089376969",
+  appId: "1:233089376969:web:7af3803238d4ebcdb8a318",
+  measurementId: "G-62RMCN0VW7",
 };
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
